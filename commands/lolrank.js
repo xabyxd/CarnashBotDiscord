@@ -25,28 +25,29 @@ module.exports = {
 
             // Check if the response has the expected structure
             if (data) {
-                await interaction.reply({
-                    content: `Summoner: ${summoner}\nTag: ${tag}\nRank: ${data}`,
-                    ephemeral: false
+                await interaction.reply({ content: `Summoner: ${summoner}\nTag: ${tag}\nRank: ${data}`, 
+                    ephemeral: false 
                 });
             } else {
-                await interaction.reply({ content: 'Could not retrieve rank data for the provided summoner tag.',
-                    ephemeral: true
+                await interaction.reply({ content: 'Could not retrieve rank data for the provided summoner tag.', 
+                    ephemeral: true 
+
                 });
             }
         } catch (error) {
             console.error('Error fetching data from API:', error.message);
             if (error.response && error.response.status === 500) {
-                await interaction.reply({ content: 'Internal Server Error: The API server encountered an issue.',
-                    ephemeral: true
+                await interaction.reply({ content: 'Internal Server Error: The API server encountered an issue.', 
+                    ephemeral: true 
+
                 });
             } else if (error.response && error.response.status === 404) {
-                await interaction.reply({ content: 'Summoner not found. Please check the summoner name and try again.',
-                    ephemeral: true
+                await interaction.reply({ content: 'Summoner not found. Please check the summoner name and try again.', 
+                    ephemeral: true 
                 });
             } else {
-                await interaction.reply({ content: 'There was an error fetching the rank data. Please try again later.',
-                    ephemeral: true
+                await interaction.reply({ content: 'There was an error fetching the rank data. Please try again later.', 
+                    ephemeral: true 
                 });
             }
         }
