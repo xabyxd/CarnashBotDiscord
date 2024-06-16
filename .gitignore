@@ -1,2 +1,4 @@
+# Ignorar archivo de configuración
+config/config.json
 /node_modules
 notes-bot.txt

@@ -9,17 +9,17 @@
     "deploy-commands": "node deploy-commands.js"
   },
   "keywords": [
-  "discord",
-  "discord-bot",
-  "nodejs",
-  "javascript",
-  "api",
-  "slash-commands",
-  "discord.js",
-  "chatbot",
-  "server",
-  "community"
-],
+    "discord",
+    "discord-bot",
+    "nodejs",
+    "javascript",
+    "api",
+    "slash-commands",
+    "discord.js",
+    "chatbot",
+    "server",
+    "community"
+  ],
   "author": "xabyxd",
   "license": "Apache-2.0",
   "dependencies": {
@@ -28,5 +28,10 @@
     "discord.js": "^14.15.3",
     "glob": "^10.4.1",
     "kleur": "^4.1.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.5.0",
+    "eslint": "^9.5.0",
+    "globals": "^15.5.0"
   }
 }
