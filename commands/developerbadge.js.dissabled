@@ -1,0 +1,21 @@
+const { MessageEmbed } = require('discord.js');
+
+module.exports = {
+    name: 'developerbadge',
+    description: 'Obtiene el badge de desarrollador activo.',
+    execute(message, args) {
+        // Aquí puedes personalizar el enlace a tu badge
+        const badgeUrl = 'URL_DEL_BADGE_DESARROLLADOR_ACTIVO';
+
+        const embed = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('Badge de Desarrollador Activo')
+            .setDescription('¡Aquí está tu badge de desarrollador activo!')
+            .setImage(badgeUrl);
+
+        message.channel.send({ 
+            embeds: [embed] 
+
+        });
+    },
+};
