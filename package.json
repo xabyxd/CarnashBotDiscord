@@ -1,20 +1,32 @@
 {
+  "name": "carnashbotdiscord",
+  "version": "1.0.0",
+  "description": "Official Carnash Discord bot Repo.",
+  "main": "botserver.js",
+  "scripts": {
+    "start": "node botserver.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy-commands": "node deploy-commands.js"
+  },
+  "keywords": [
+  "discord",
+  "discord-bot",
+  "nodejs",
+  "javascript",
+  "api",
+  "slash-commands",
+  "discord.js",
+  "chatbot",
+  "server",
+  "community"
+],
+  "author": "xabyxd",
+  "license": "Apache-2.0",
   "dependencies": {
     "@discordjs/builders": "^1.8.2",
     "axios": "^1.7.2",
     "discord.js": "^14.15.3",
-    "fs": "^0.0.1-security",
     "glob": "^10.4.1",
     "kleur": "^4.1.5"
-  },
-  "name": "carnashbotdiscord",
-  "version": "1.0.0",
-  "description": "Official Genesis Discord bot Repo.",
-  "main": "botserver.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "xabyxd",
-  "license": "Apache-2.0"
+  }
 }
