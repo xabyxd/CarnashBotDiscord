@@ -1,5 +1,5 @@
 # CarnashBotDiscord
- Official Genesis Discord bot Repo.
+ Official Carnash Discord bot Repo.
 
 Archivos y Directorios
 commands/:
