@@ -35,11 +35,11 @@ client.login(config.token);
 
 /**
  * @OWNED
- * Genesis Team
+ * xabyxd Team
  * @DEVELOPMENT
- * by Genesis Development Team
+ * by xabyxd Development Team
  * @LICENSE
  * Apache License 2.0
  * + @INFO
- * at Genesis Support
+ * at xabyxd Support
  */

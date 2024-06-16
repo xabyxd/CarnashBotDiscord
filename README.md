@@ -1,4 +1,4 @@
-# GenesisBotDiscord
+# CarnashBotDiscord
  Official Genesis Discord bot Repo.
 
 Archivos y Directorios
