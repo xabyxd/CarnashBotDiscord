@@ -28,8 +28,19 @@ module.exports = {
             )
             .setTimestamp();
 
-        await interaction.reply({ 
-            embeds: [embed] 
+        await interaction.reply({
+            embeds: [embed]
         });
     }
 };
+
+/**
+ * @OWNED
+ * xabyxd Team
+ * @DEVELOPMENT
+ * by xabyxd Development Team
+ * @LICENSE
+ * Apache License 2.0
+ * + @INFO
+ * at xabyxd Support
+ */

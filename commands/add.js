@@ -4,11 +4,11 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('add')
         .setDescription('Adds two numbers.')
-        .addIntegerOption(option => 
+        .addIntegerOption(option =>
             option.setName('first')
                 .setDescription('First number')
                 .setRequired(true))
-        .addIntegerOption(option => 
+        .addIntegerOption(option =>
             option.setName('second')
                 .setDescription('Second number')
                 .setRequired(true)),
@@ -20,3 +20,14 @@ module.exports = {
         await interaction.reply(`The sum of ${firstNumber} and ${secondNumber} is ${sum}.`);
     }
 };
+
+/**
+ * @OWNED
+ * xabyxd Team
+ * @DEVELOPMENT
+ * by xabyxd Development Team
+ * @LICENSE
+ * Apache License 2.0
+ * + @INFO
+ * at xabyxd Support
+ */
