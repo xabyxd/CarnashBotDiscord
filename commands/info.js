@@ -9,6 +9,7 @@ module.exports = {
         const { client } = interaction;
 
         // Uptime calculation
+        // eslint-disable-next-line no-undef
         const uptime = process.uptime();
         const days = Math.floor(uptime / (3600 * 24));
         const hours = Math.floor((uptime % (3600 * 24)) / 3600);
