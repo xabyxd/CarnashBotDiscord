@@ -3,8 +3,8 @@ const axios = require('axios');
 const API_BASE_URL = 'https://api.antonyz.tk';
 const API_ENDPOINT = '/lol/rank?';
 
-async function fetchLolRank(summoner, tag) {
-    const API_URL = `${API_BASE_URL}${API_ENDPOINT}name=${summoner}&tag=${tag}&r=EUW&lang=en`;
+async function fetchLolRank(summoner, tag, region) {
+    const API_URL = `${API_BASE_URL}${API_ENDPOINT}name=${summoner}&tag=${tag}&r=${region}&lang=en`;
 
     try {
         const response = await axios.get(API_URL);
