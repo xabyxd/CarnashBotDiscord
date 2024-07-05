@@ -29,11 +29,11 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 /**
  * @OWNED
- * xabyxd Team
+ * carnashgg Team
  * @DEVELOPMENT
- * by xabyxd Development Team
+ * by carnashgg Development Team
  * @LICENSE
  * Apache License 2.0
  * + @INFO
- * at xabyxd Support
+ * at carnashgg Support
  */
