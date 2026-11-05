@@ -1,0 +1,72 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		// Formato
+		"editor.tabSize": 4,
+		"editor.insertSpaces": true,
+		"editor.detectIndentation": false,
+		"files.eol": "\r\n",
+		"files.insertFinalNewline": false,
+		"files.trimTrailingWhitespace": true,
+
+		// TypeScript con NodeNext: los imports relativos necesitan extensión .js
+		"ts.preferences.importModuleSpecifier": "relative",
+		"ts.preferences.importModuleSpecifierEnding": "js",
+		"ts.updateImportsOnFileMove.enabled": "always",
+
+		// Menos ruido en búsqueda y explorador
+		"search.exclude": {
+			"**/dist": true,
+			"**/node_modules": true,
+			"**/package-lock.json": true
+		},
+		"files.watcherExclude": {
+			"**/dist/**": true,
+			"**/node_modules/**": true
+		}
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "dev",
+				"type": "npm",
+				"script": "dev",
+				"isBackground": true,
+				"problemMatcher": []
+			},
+			{
+				"label": "typecheck",
+				"type": "npm",
+				"script": "typecheck",
+				"problemMatcher": "$tsc"
+			},
+			{
+				"label": "build",
+				"type": "npm",
+				"script": "build",
+				"group": "build",
+				"problemMatcher": "$tsc"
+			}
+		]
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Debug bot (tsx)",
+				"type": "node",
+				"request": "launch",
+				"runtimeArgs": ["--import", "tsx"],
+				"args": ["src/bot.ts"],
+				"envFile": "${workspaceFolder}/.env",
+				"console": "integratedTerminal",
+				"skipFiles": ["<node_internals>/**"]
+			}
+		]
+	}
+}
