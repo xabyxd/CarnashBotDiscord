@@ -9,7 +9,7 @@ export async function deployCommands(
     guildId?: string,
 ): Promise<void> {
     const rest = new REST({ version: "10" }).setToken(token);
-    const body = commands.map((c) => c.data.toJSON());
+    const body = commands.map((command) => command.data.toJSON());
 
     // With guildId, it updates instantly (ideal for development); without it, it’s global.
     const route = guildId

@@ -24,7 +24,8 @@ module.exports = {
 
             max_memory_restart: '256M',
             env: {
-                NODE_ENV: 'production'
+                NODE_ENV: 'production',
+                FORCE_COLOR: '1'
             }
         }
     ]
