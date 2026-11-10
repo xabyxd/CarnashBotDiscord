@@ -4,6 +4,7 @@ import kleur from "kleur";
 import { platform, release } from "os";
 import { deployCommands } from "./handlers/DeployCommands.js";
 import { loadCommands } from "./handlers/LoadCommands.js";
+import { startUpdateChecker } from './modules/updateChecker.js';
 import { log } from "./utils/logger.js";
 import { formatCompactSeconds } from "./utils/time.js";
 
@@ -13,12 +14,13 @@ const guildId = process.env.DISCORD_GUILD_ID;
 const VERSION = process.env.BOT_VERSION ?? "0.0.0";
 const BNAME = process.env.BOT_NAME ?? "CarnashBot";
 let iteration = 0;
+var enableUpdateCheck = false;
 
 // Future usage of a api endpoint to request a current song in spotify
 const activities: ActivityOptions[] = [
-    { name: "custom", type: ActivityType.Custom, state: `EXODIA L9 Member V${VERSION}` },
-    { name: "EXODIA - perma", type: ActivityType.Listening },
-    { name: "eto - holdin' on to your silence", type: ActivityType.Listening }
+    { name: "custom", type: ActivityType.Custom, state: `EXODIA L9 Member V${VERSION}` }
+    //{ name: "EXODIA - perma", type: ActivityType.Listening },
+    //{ name: "eto - holdin' on to your silence", type: ActivityType.Listening }
 ];
 
 if (!token || !clientId) {
@@ -68,14 +70,14 @@ client.once(Events.ClientReady, async (readyClient) => {
     log.info(`ID:       ${readyClient.user.id}`);
     log.info(`Servers:  ${readyClient.guilds.cache.size}\n`);
 
-    client.guilds.cache.forEach((guild) => {
-        log.info(`Connected to server: ${guild.name} (ID: ${guild.id})`);
-    });
-
     console.log("");
     log.info("System information");
     log.info(`Node: ${process.version}`);
-    log.info(`Platform: ${platform()} ${release()}`);
+    log.info(`Platform: ${platform()} ${release()}\n`);
+
+    client.guilds.cache.forEach((guild) => {
+        log.info(`Connected to server: ${guild.name} (ID: ${guild.id})`);
+    });
 
     // Set the first activity right away, then rotate every 15 seconds
     rotateActivity();
@@ -86,11 +88,18 @@ client.once(Events.ClientReady, async (readyClient) => {
             description:
                 `Bot developed by: xabyxd\n` +
                 `still under development, Repository:\n` +
-                `github.com/xabyxd/CarnashBotDiscord/`
+                `https://github.com/xabyxd/CarnashBotDiscord/`
             }
         );
     } catch (error) {
         log.error("The description could not be updated: ", error);
+    }
+
+    if (enableUpdateCheck) {
+        log.info("Starting update checker...");
+        startUpdateChecker(client);
+    } else {
+        log.info("Update checker is disabled by config.");
     }
 });
 
