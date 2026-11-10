@@ -1,4 +1,4 @@
-import { ActivityType, Client, Events, GatewayIntentBits, MessageFlags } from "discord.js";
+import { ActivityType, Client, Events, GatewayIntentBits, MessageFlags, type ActivityOptions } from "discord.js";
 import "dotenv/config";
 import kleur from "kleur";
 import { platform, release } from "os";
@@ -12,6 +12,14 @@ const clientId = process.env.DISCORD_CLIENT_ID;
 const guildId = process.env.DISCORD_GUILD_ID;
 const VERSION = process.env.BOT_VERSION ?? "0.0.0";
 const BNAME = process.env.BOT_NAME ?? "CarnashBot";
+let iteration = 0;
+
+// Future usage of a api endpoint to request a current song in spotify
+const activities: ActivityOptions[] = [
+    { name: "custom", type: ActivityType.Custom, state: `EXODIA L9 Member V${VERSION}` },
+    { name: "EXODIA - perma", type: ActivityType.Listening },
+    { name: "eto - holdin' on to your silence", type: ActivityType.Listening }
+];
 
 if (!token || !clientId) {
     log.error("Missing DISCORD_TOKEN or DISCORD_CLIENT_ID on the .env file");
@@ -26,13 +34,13 @@ const client = new Client({
     ],
     presence: {
         status: "dnd",
-        activities: [
-            {
-                name: "custom",
-                type: ActivityType.Custom,
-                state:`EXODIA L9 Member V${VERSION}`
-            }
-        ]
+        //activities: [
+        //    {
+        //        name: "custom",
+        //        type: ActivityType.Custom,
+        //        state:`EXODIA L9 Member V${VERSION}`
+        //    }
+        //]
     }
 });
 
@@ -45,7 +53,15 @@ try {
     process.exit(1);
 }
 
-client.once(Events.ClientReady, (readyClient) => {
+function rotateActivity() {
+    const activity = activities[iteration];
+    if (!activity) return;
+
+    client.user?.setActivity(activity);
+    iteration = (iteration + 1) % activities.length;
+}
+
+client.once(Events.ClientReady, async (readyClient) => {
     log.ok(`Bot is online as ${kleur.bold(readyClient.user.tag)}\n`);
     log.info(`Bot version ${VERSION}`);
     log.info(`Username: ${readyClient.user.username}`);
@@ -60,6 +76,22 @@ client.once(Events.ClientReady, (readyClient) => {
     log.info("System information");
     log.info(`Node: ${process.version}`);
     log.info(`Platform: ${platform()} ${release()}`);
+
+    // Set the first activity right away, then rotate every 15 seconds
+    rotateActivity();
+    setInterval(rotateActivity, 15_000);
+
+    try {
+        await client.application?.edit({
+            description:
+                `Bot developed by: xabyxd\n` +
+                `still under development, Repository:\n` +
+                `github.com/xabyxd/CarnashBotDiscord/`
+            }
+        );
+    } catch (error) {
+        log.error("The description could not be updated: ", error);
+    }
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
@@ -90,7 +122,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
             } else {
                 await interaction.reply(reply);
             }
-        } catch  (replyError) {
+        } catch (replyError) {
             log.error("Could not send the error reply: ", replyError);
         }
     }
@@ -104,7 +136,7 @@ process.on("unhandledRejection", (reason) => {
 process.on("uncaughtException", (error) => {
     log.error("Uncaught exception: ", error);
     process.exit(1);
-})
+});
 
 client.on(Events.Error, (error) => log.error(error));
 client.on(Events.Warn, (message) => log.warn(message));

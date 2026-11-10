@@ -40,7 +40,7 @@ Rellena el `.env`:
 | `/hello` | Saluda |
 | `/ping` | Muestra la latencia del bot y de la API |
 | `/info` | Información del bot (servidores, uptime...) |
-| `/developerbadge` | Badge de desarrollador activo |
+| `/lolrank` | Muestra información del rango de un invocador de LoL |
 
 ### Añadir un comando nuevo
 
