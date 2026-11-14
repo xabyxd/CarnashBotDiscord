@@ -14,7 +14,7 @@ const guildId = process.env.DISCORD_GUILD_ID;
 const VERSION = process.env.BOT_VERSION ?? "0.0.0";
 const BNAME = process.env.BOT_NAME ?? "CarnashBot";
 let iteration = 0;
-var enableUpdateCheck = false;
+var enableUpdateCheck = true;
 
 // Future usage of a api endpoint to request a current song in spotify
 const activities: ActivityOptions[] = [
