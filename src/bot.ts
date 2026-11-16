@@ -4,6 +4,7 @@ import kleur from "kleur";
 import { platform, release } from "os";
 import { deployCommands } from "./handlers/DeployCommands.js";
 import { loadCommands } from "./handlers/LoadCommands.js";
+import { loadPrefixCommands } from "./handlers/PrefixCommands.js";
 import { startUpdateChecker } from './modules/updateChecker.js';
 import { log } from "./utils/logger.js";
 import { formatCompactSeconds } from "./utils/time.js";
@@ -13,6 +14,7 @@ const clientId = process.env.DISCORD_CLIENT_ID;
 const guildId = process.env.DISCORD_GUILD_ID;
 const VERSION = process.env.BOT_VERSION ?? "0.0.0";
 const BNAME = process.env.BOT_NAME ?? "CarnashBot";
+const PREFIX = process.env.BOT_PREFIX ?? "!";
 let iteration = 0;
 var enableUpdateCheck = true;
 
@@ -32,7 +34,10 @@ log.info(`Starting bot ${BNAME}`);
 
 const client = new Client({
     intents: [
-        GatewayIntentBits.Guilds
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
     ],
     presence: {
         status: "dnd",
@@ -54,6 +59,8 @@ try {
     log.error("Deploy failed:", error);
     process.exit(1);
 }
+
+const PrefixCommands = loadPrefixCommands();
 
 function rotateActivity() {
     const activity = activities[iteration];
@@ -134,6 +141,26 @@ client.on(Events.InteractionCreate, async (interaction) => {
         } catch (replyError) {
             log.error("Could not send the error reply: ", replyError);
         }
+    }
+});
+
+client.on(Events.MessageCreate, async (message) => {
+    if (message.author.bot || !message.inGuild()) return;
+    if (!message.content.startsWith(PREFIX)) return;
+
+    const [name, ...args] = message.content.slice(PREFIX.length).trim().split(/\s+/);
+    if (!name) return;
+
+    const command = PrefixCommands.get(name.toLowerCase());
+    if (!command) return;
+
+    log.info(`${kleur.gray(formatCompactSeconds())} ${kleur.bold(message.author.username)} (${message.author.id}) used ${kleur.cyan(PREFIX + name)} in ${message.guild.name}`);
+
+    try {
+        await command.execute(message, args);
+    } catch (error) {
+        log.error(`Error while running ${PREFIX}${name}:`, error);
+        await message.reply("There was an error while executing this command.").catch(() => {});
     }
 });
 
