@@ -18,5 +18,5 @@ export async function deployCommands(
 
     log.info(`Registering ${body.length} command(s) ${guildId ? `in guild ${guildId}` : "globally"}...`);
     await rest.put(route, { body });
-    log.ok("Commands registered");
+    log.ok("Slash commands registered");
 }

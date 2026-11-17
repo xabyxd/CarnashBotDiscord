@@ -16,7 +16,7 @@ const VERSION = process.env.BOT_VERSION ?? "0.0.0";
 const BNAME = process.env.BOT_NAME ?? "CarnashBot";
 const PREFIX = process.env.BOT_PREFIX ?? "!";
 let iteration = 0;
-var enableUpdateCheck = true;
+var enableUpdateCheck = false;
 
 // Future usage of a api endpoint to request a current song in spotify
 const activities: ActivityOptions[] = [
@@ -61,6 +61,7 @@ try {
 }
 
 const PrefixCommands = loadPrefixCommands();
+log.ok("Prefix commands loaded!")
 
 function rotateActivity() {
     const activity = activities[iteration];
